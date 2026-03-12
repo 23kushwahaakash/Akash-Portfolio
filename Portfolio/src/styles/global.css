@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400;500;600&display=swap');
+
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── CSS Variables ──────────────────────────────────────────────────────── */
+:root {
+  --bg:           #080e09;
+  --surface:      #0d150e;
+  --card:         #111a12;
+  --border:       #1e2e1f;
+  --accent1:      #c8f135;
+  --accent2:      #2d6a35;
+  --accent3:      #5db36a;
+  --accent4:      #f5ead5;
+  --text:         #eef5e0;
+  --muted:        #5a7560;
+  --font-display: 'Playfair Display', serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+  --font-body:    'Jost', sans-serif;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── Interactive elements — MUST override cursor: none ─────────────────── */
+a,
+button,
+input,
+textarea,
+select,
+label {
+  cursor: pointer;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10;
+}
+
+input,
+textarea {
+  cursor: text;
+}
+
+/* ─── Link Hover ─────────────────────────────────────────────────────────── */
+a:hover {
+  color: var(--accent1);
+  transition: color 0.2s;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent2);
+  border-radius: 2px;
+}
+
+/* ─── Noise Overlay ──────────────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.35;
+}
+
+/* ─── Custom Cursor ──────────────────────────────────────────────────────── */
+.cursor {
+  width: 12px;
+  height: 12px;
+  background: var(--accent1);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none !important;  /* never intercept clicks */
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease, background 0.2s;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--accent1);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none !important;  /* never intercept clicks */
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.2s, height 0.2s, border-color 0.2s;
+  opacity: 0.6;
+}
+
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring {
+  width: 56px;
+  height: 56px;
+  border-color: var(--accent4);
+}
+
+/* ─── Scroll Reveal ──────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Gradient Text ──────────────────────────────────────────────────────── */
+.grad {
+  background: linear-gradient(135deg, var(--accent1), var(--accent3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Glow Button ────────────────────────────────────────────────────────── */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(200, 241, 53, 0.35);
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(200, 241, 53, 0.12), rgba(93, 179, 106, 0.12));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn-glow:hover::after {
+  opacity: 1;
+}
+
+/* ─── Skill Pill ─────────────────────────────────────────────────────────── */
+.pill {
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.pill:hover {
+  border-color: var(--accent1);
+  box-shadow: 0 0 16px rgba(200, 241, 53, 0.18);
+  transform: translateY(-3px);
+}
+
+/* ─── Project Card ───────────────────────────────────────────────────────── */
+.proj-card {
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.proj-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(200, 241, 53, 0.04), rgba(93, 179, 106, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;   /* ✅ pseudo element must never block clicks */
+}
+
+.proj-card:hover {
+  border-color: var(--accent3);
+  box-shadow: 0 8px 40px rgba(93, 179, 106, 0.15);
+  transform: translateY(-6px);
+}
+
+.proj-card:hover::before {
+  opacity: 1;
+}
+
+/* ─── Nav Link ───────────────────────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent1);
+  transition: width 0.25s ease;
+  pointer-events: none;   /* ✅ underline must never block clicks */
+}
+
+.nav-link:hover {
+  color: var(--text);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── Marquee ────────────────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 18s linear infinite;
+}
+
+/* ─── Cursor Blink ───────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ─── Hero Animations ────────────────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-name  { animation: slideUp 0.9s cubic-bezier(.16, 1, .3, 1) 0.10s both; }
+.hero-role  { animation: slideUp 0.9s cubic-bezier(.16, 1, .3, 1) 0.28s both; }
+.hero-desc  { animation: slideUp 0.9s cubic-bezier(.16, 1, .3, 1) 0.44s both; }
+.hero-cta   { animation: slideUp 0.9s cubic-bezier(.16, 1, .3, 1) 0.58s both; }
+.hero-badge { animation: fadeIn  1.2s ease 0.80s both; }
+
+/* ─── Floating Blobs ─────────────────────────────────────────────────────── */
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(30px, -20px) scale(1.05); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-20px, 30px) scale(0.97); }
+}
+
+.blob1 { animation: float1 9s  ease-in-out infinite; }
+.blob2 { animation: float2 11s ease-in-out infinite; }
+
+/* ─── Timeline Dot Pulse ─────────────────────────────────────────────────── */
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(200, 241, 53, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(200, 241, 53, 0); }
+}
+
+.timeline-dot {
+  animation: pulse 2.5s ease-in-out infinite;
+}

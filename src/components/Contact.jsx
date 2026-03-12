@@ -94,7 +94,6 @@ const Contact = () => {
               marginBottom: "0.8rem",
             }}
           >
-            // say hello
           </p>
           <h2
             style={{

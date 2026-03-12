@@ -127,7 +127,6 @@ const Skills = () => {
               marginBottom: "0.8rem",
             }}
           >
-            // my toolkit
           </p>
           <h2
             style={{

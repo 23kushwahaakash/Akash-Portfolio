@@ -189,7 +189,6 @@ const Projects = () => {
               marginBottom: "0.8rem",
             }}
           >
-            // things i've built
           </p>
           <h2
             style={{

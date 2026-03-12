@@ -108,7 +108,6 @@ const About = () => {
               marginBottom: "1rem",
             }}
           >
-            // about me
           </p>
 
           {/* heading */}

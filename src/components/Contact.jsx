@@ -11,9 +11,9 @@ const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 // ── Static data ────────────────────────────────────────────────────────────
 const socials = [
   { label: "GitHub",   icon: "⌥", href: "https://github.com/23kushwahaakash"          },
-  { label: "LinkedIn", icon: "💼", href: "#"                                            },
-  { label: "Twitter",  icon: "𝕏",  href: "#"                                            },
-  { label: "Email",    icon: "✉",  href: "mailto:you@example.com"                       },
+  { label: "LinkedIn", icon: "💼", href: "https://www.linkedin.com/in/23kushwahaakash"                                            },
+  { label: "Twitter",  icon: "𝕏",  href: "https://x.com/32kushwahaakash"                                            },
+  { label: "Email",    icon: "✉",  href: "mailto:23kushwahaakash@gmail.com"       },
 ];
 
 // ── Shared styles (outside component — never changes) ──────────────────────

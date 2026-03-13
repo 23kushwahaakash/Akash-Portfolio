@@ -304,3 +304,7 @@ body:has(button:hover) .cursor-ring {
 .timeline-dot {
   animation: pulse 2.5s ease-in-out infinite;
 }
+
+@media (pointer: coarse) and (hover: none) {
+  body { cursor: auto; }
+}
